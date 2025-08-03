@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>سایت فیروزه‌ای</title>
+<style>
+  body {
+    margin: 0; 
+    font-family: Arial, sans-serif; 
+    background: linear-gradient(135deg, #00bcd4, #2196f3);
+    color: white;
+  }
+  header {
+    background-color: #007a99;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+  }
+  .slide-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #004d66;
+  }
+  .slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  .slide {
+    min-width: 100%;
+    background: #00acc1;
+    padding: 40px;
+    box-sizing: border-box;
+    font-size: 20px;
+    text-align: center;
+  }
+  .btn {
+    background: #004d66;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    margin: 10px 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  .btn:hover {
+    background: #007a99;
+  }
+  .chat-box {
+    width: 300px;
+    height: 400px;
+    background: #008ba3;
+    margin: 20px auto;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+  }
+  .messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  .input-area {
+    display: flex;
+    border-top: 1px solid #004d66;
+  }
+  .input-area input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 0 0 0 10px;
+    font-size: 16px;
+  }
+  .input-area button {
+    background: #004d66;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 0 0 10px 0;
+    color: white;
+  }
+</style>
+</head>
+<body>
+<header>سایت فیروزه‌ای من</header>
+
+<div class="slide-container">
+  <div class="slides" id="slides">
+    <div class="slide">اسلاید ۱: خوش آمدید</div>
+    <div class="slide">اسلاید ۲: پروژه‌ها</div>
+    <div class="slide">اسلاید ۳: تماس با ما</div>
+  </div>
+  <div style="text-align:center;">
+    <button class="btn" onclick="prevSlide()">قبلی</button>
+    <button class="btn" onclick="nextSlide()">بعدی</button>
+  </div>
+</div>
+
+<div class="chat-box" id="chatBox">
+  <div class="messages" id="messages"></div>
+  <div class="input-area">
+    <input type="text" id="chatInput" placeholder="پیام بنویس..." />
+    <button onclick="sendMessage()">ارسال</button>
+  </div>
+</div>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.getElementById('slides');
+  const totalSlides = slides.children.length;
+
+  function showSlide(index) {
+    if(index < 0) index = totalSlides - 1;
+    if(index >= totalSlides) index = 0;
+    currentIndex = index;
+    slides.style.transform = `translateX(${-index * 100}%)`;
+  }
+
+  function nextSlide() {
+    showSlide(currentIndex + 1);
+  }
+
+  function prevSlide() {
+    showSlide(currentIndex - 1);
+  }
+
+  showSlide(0);
+
+  // چت ساده
+  const messages = document.getElementById('messages');
+  const chatInput = document.getElementById('chatInput');
+
+  function sendMessage() {
+    const text = chatInput.value.trim();
+    if(!text) return;
+
+    // پیام کاربر
+    const userMsg = document.createElement('div');
+    userMsg.textContent = "شما: " + text;
+    messages.appendChild(userMsg);
+
+    // پاسخ ساده خودکار
+    const botMsg = document.createElement('div');
+    botMsg.textContent = "ربات: ممنون، پیام شما دریافت شد.";
+    messages.appendChild(botMsg);
+
+    messages.scrollTop = messages.scrollHeight;
+    chatInput.value = '';
+  }
+</script>
+</body>
+</html>
